@@ -13,6 +13,10 @@ leakray check .
 
 `examples/leaky_pipeline.py` is a typical tutorial-style pipeline. leakray reads it without running it:
 
+![leakray check output](docs/assets/demo.svg)
+
+As plain text:
+
 ```text
 $ leakray check examples/
 examples\leaky_pipeline.py:18:5 LK001 error, high confidence
