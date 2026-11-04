@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - LK014: catches `value_counts(normalize=True)` mapped back, groupby std/rank, aggregates merged back, and whole-column normalisation (low confidence).
 - LK013: the test score must be selected inside or right after the loop. Transform and metric variable names (`tf_test`) are no longer treated as data (found by dogfooding).
 
+- Notebooks: a cell that doesn't parse is skipped on its own instead of failing the whole notebook. Empty and non-Python (R, Julia) notebooks are skipped. Parse errors on 4 public repos went from 16 to 0.
+- Dataflow: scalar parameters such as `test_start = "2014-12-30"` or `test_size = 0.2` are no longer "test data". Tuple assignments keep a role per element. Unknown estimators are guessed from names (`self._vectorizer()`), and fits inside helper functions are followed.
+
 ### Added
 
 - A held-out benchmark set (`benchmark/holdout/`), written after the fixes, to keep the reported numbers honest.

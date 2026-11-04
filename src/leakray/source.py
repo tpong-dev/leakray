@@ -8,6 +8,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+NL = "\n"
+
 # IPython magics / shell escapes that are not valid Python.
 _MAGIC_RE = re.compile(r"^\s*([%!?]|\w+\s*=\s*[%!])")
 
@@ -95,6 +97,40 @@ def notebook_code(raw: str) -> tuple[str, list[tuple[int, int]]]:
     return "\n".join(out_lines) + "\n", cell_map
 
 
+def _is_python_notebook(raw: str) -> bool:
+    try:
+        meta = json.loads(raw).get("metadata", {})
+    except (ValueError, AttributeError):
+        return True  # let the normal path report the problem
+    lang = (meta.get("kernelspec", {}) or {}).get("language") or (meta.get("language_info", {}) or {}).get("name")
+    return lang is None or str(lang).lower().startswith("python")
+
+
+def _blank_bad_cells(text: str, cell_map: list[tuple[int, int]]) -> str:
+    """Replace every line of a cell that does not parse on its own with ``pass``.
+
+    One broken cell (unusual magic, invalid syntax, other language) then costs only that cell,
+    not the whole notebook.
+    """
+    lines = text.splitlines()
+    try:
+        ast.parse(text)
+        return text
+    except SyntaxError:
+        pass
+    by_cell: dict[int, list[int]] = {}
+    for i, (cell, _) in enumerate(cell_map):
+        by_cell.setdefault(cell, []).append(i)
+    for idxs in by_cell.values():
+        src = NL.join(lines[i] for i in idxs)
+        try:
+            ast.parse(src)
+        except SyntaxError:
+            for i in idxs:
+                lines[i] = "pass"
+    return NL.join(lines) + NL
+
+
 def _parse_lenient(text: str, path: str) -> ast.Module:
     """Parse; if a notebook cell has a syntax error, blank that line and retry."""
     lines = text.splitlines()
@@ -115,7 +151,11 @@ def load_source(path: str | Path) -> SourceFile:
     p = Path(path)
     raw = p.read_text(encoding="utf-8", errors="replace")
     if p.suffix == ".ipynb":
+        if not raw.strip() or not _is_python_notebook(raw):
+            # empty file, or an R/Julia/... notebook: nothing for us to analyse
+            return SourceFile(path=str(p), text="", tree=ast.Module(body=[], type_ignores=[]), cell_map=[])
         text, cell_map = notebook_code(raw)
+        text = _blank_bad_cells(text, cell_map)
         tree = _parse_lenient(text, str(p))
         return SourceFile(path=str(p), text=text, tree=tree, cell_map=cell_map)
     tree = ast.parse(raw, filename=str(p))
