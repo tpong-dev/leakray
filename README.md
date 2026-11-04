@@ -37,7 +37,7 @@ The fixed version, `examples/clean_pipeline.py`, produces no findings.
 
 ## Why
 
-Leakage is the most common way ML results go wrong without anyone noticing: the code runs, the score is great, and it does not hold up on new data. Kapoor & Narayanan (2023) found leakage behind reproducibility failures in hundreds of published papers across many fields. Style linters (ruff, pylint) do not look for it. leakray does, and it fits into the tools you already use: the CLI, pre-commit, and GitHub code scanning via SARIF.
+Leakage is one of the most common ways ML results go wrong without anyone noticing: the code runs, the score is great, and it does not hold up on new data. Kapoor & Narayanan (2023) surveyed earlier reviews and found leakage affecting at least 294 published papers across 17 fields. Style linters such as ruff and pylint are not built to catch it. leakray does, and it fits into the tools you already use: the CLI, pre-commit, and GitHub code scanning via SARIF.
 
 ## Install
 
@@ -137,7 +137,7 @@ False positives are bugs. Please [report them](https://github.com/tpong-dev/leak
 
 ## Prior work
 
-Yang et al. (ASE '22), "Data Leakage in Notebooks: Static Detection and Better Processes", introduced static leakage detection for notebooks: overlap, multi-test and preprocessing leakage, found with a Datalog-based dataflow analysis. leakray borrows that framing. It trades some analysis depth for a pip-installable, zero-config tool that runs on scripts and notebooks in CI (pre-commit, GitHub Action, SARIF), covers more leak types (time series, groups, resampling, target encoding, lag features, eval_set) and gives a fix hint per rule. Full review: [docs/prior_work.md](docs/prior_work.md).
+Yang et al., ["Data Leakage in Notebooks: Static Detection and Better Processes"](https://doi.org/10.1145/3551349.3556918) (ASE '22), presented a static analysis for three leak types in notebooks: overlap, multi-test and preprocessing leakage. It is built on Datalog plus pyright type inference, and found leakage in about 30% of over 100,000 public notebooks. NBLyzer (Subotić et al., ICSE-SEIP '22) also analysed notebooks for leakage statically. leakray borrows Yang et al.'s categories. It trades some analysis depth for a pip-installable, zero-config tool that runs on scripts and notebooks in CI (pre-commit, GitHub Action, SARIF), adds leak types beyond those three (time-series splits, group-aware CV, target encoding, unshifted lag features, target in features, deduplication) and gives a fix hint per rule. Other pip-installable static linters exist, for example [mlguard-lint](https://pypi.org/project/mlguard-lint/). Full review: [docs/prior_work.md](docs/prior_work.md).
 
 ## Development
 
