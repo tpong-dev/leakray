@@ -1,0 +1,36 @@
+name: Action self-test
+
+# Runs the composite action in this repo the way a consumer would (uses: ./).
+on:
+  push:
+    branches: [main]
+    paths: [action.yml, .github/workflows/action-test.yml, src/**]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  leaky-must-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: leakray
+        uses: ./
+        continue-on-error: true
+        with:
+          path: examples/leaky_pipeline.py
+          fail-on: error
+          upload-sarif: "false"
+      - name: The leaky example must fail the check
+        run: test "${{ steps.leakray.outcome }}" = "failure"
+
+  clean-must-pass:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          path: examples/clean_pipeline.py
+          upload-sarif: "false"
