@@ -672,9 +672,12 @@ class _Walker(ast.NodeVisitor):
             return
 
         role = a.role_of(value, line)
-        # data loaders produce FULL data
-        if call is not None and (short in DATA_LOADERS or short.startswith(DATA_LOADER_PREFIXES)) \
-                and not is_estimator_like(short.replace("DataFrame", "")):
+        # data loaders produce FULL data (also inside a chain: pd.read_csv(...).drop_duplicates())
+        loader_calls = [
+            (a.resolve(n.func) or "").rsplit(".", 1)[-1] for n in ast.walk(value) if isinstance(n, ast.Call)
+        ]
+        if any(((s in DATA_LOADERS or s.startswith(DATA_LOADER_PREFIXES)) and s != "load") or (s == "load"
+               and isinstance(value, ast.Call)) for s in loader_calls):
             role = combine([role, Role.FULL])
             if short.startswith(("load_", "fetch_", "make_")) and len(names) == 2:
                 # X, y = load_iris(return_X_y=True)

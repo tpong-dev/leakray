@@ -6,6 +6,7 @@ from collections.abc import Iterator
 
 from ..dataflow import PREPROCESSORS, Analysis, Role
 from ..models import HIGH, Finding, Severity
+from ._util import later_holdout_split
 from .base import Rule, register
 
 
@@ -27,7 +28,7 @@ class PreprocessBeforeSplit(Rule):
                 continue
             if fit.x_role is not Role.FULL:
                 continue
-            later = a.split_after(fit.line)
+            later = later_holdout_split(a, fit.line)
             if later is None:
                 continue  # no later split: CV case is LK011, no-split files are out of scope
             yield self.report(

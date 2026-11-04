@@ -1,0 +1,13 @@
+- id: leakray
+  name: leakray
+  description: Detect data leakage in ML code (Python and Jupyter notebooks).
+  entry: leakray check
+  language: python
+  types_or: [python, jupyter]
+- id: leakray-errors-only
+  name: leakray (errors only)
+  description: Detect data leakage in ML code, failing only on errors.
+  entry: leakray check
+  language: python
+  types_or: [python, jupyter]
+  args: ["--fail-on", "error"]

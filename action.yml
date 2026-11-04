@@ -1,0 +1,49 @@
+name: leakray ML data leakage check
+description: Detect data leakage in ML code (Python and Jupyter notebooks) and upload SARIF results.
+branding:
+  icon: shield
+  color: purple
+inputs:
+  path:
+    description: Path(s) to analyse.
+    default: "."
+  args:
+    description: Extra arguments passed to leakray check.
+    default: ""
+  min-confidence:
+    description: Minimum confidence to report (low, medium, high).
+    default: "low"
+  fail-on:
+    description: Severity that fails the job (error, warning, info).
+    default: "warning"
+  python-version:
+    description: Python version to use.
+    default: "3.12"
+  upload-sarif:
+    description: Upload SARIF results to GitHub code scanning.
+    default: "true"
+outputs:
+  sarif-file:
+    description: Path to the generated SARIF file.
+    value: leakray.sarif
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install leakray
+      shell: bash
+      run: pip install "${{ github.action_path }}"
+    - name: Generate SARIF
+      shell: bash
+      run: leakray check ${{ inputs.path }} --format sarif --output leakray.sarif --exit-zero --min-confidence ${{ inputs.min-confidence }} ${{ inputs.args }}
+    - name: Upload SARIF
+      if: inputs.upload-sarif == 'true'
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: leakray.sarif
+        category: leakray
+    - name: Fail on findings
+      shell: bash
+      run: leakray check ${{ inputs.path }} --min-confidence ${{ inputs.min-confidence }} --fail-on ${{ inputs.fail-on }} ${{ inputs.args }}

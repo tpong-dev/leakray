@@ -1,0 +1,37 @@
+name: False positive
+description: leakray flagged code that does not leak data.
+labels: [false-positive]
+body:
+  - type: input
+    id: rule
+    attributes:
+      label: Rule code
+      placeholder: LK001
+    validations:
+      required: true
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Code snippet
+      description: Smallest snippet that reproduces the finding.
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What you expected (for example no finding) and why the code is safe.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: The finding leakray reported (paste the output).
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: leakray version

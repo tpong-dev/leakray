@@ -1,0 +1,35 @@
+name: New rule proposal
+description: Propose a new data-leakage detection rule.
+labels: [new-rule]
+body:
+  - type: textarea
+    id: pattern
+    attributes:
+      label: Leakage pattern
+      description: Describe how the leakage occurs and why it inflates or biases results.
+    validations:
+      required: true
+  - type: textarea
+    id: bad
+    attributes:
+      label: Leaky example
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: good
+    attributes:
+      label: Clean example
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: refs
+    attributes:
+      label: References
+      description: Papers, docs or blog posts describing this pattern.
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: Expected confidence
+      options: [low, medium, high]
