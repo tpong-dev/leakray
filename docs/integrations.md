@@ -5,7 +5,7 @@
 ```yaml
 repos:
   - repo: https://github.com/tpong-dev/leakray
-    rev: v0.1.0
+    rev: v0.2.0
     hooks:
       - id: leakray            # or leakray-errors-only
 ```
@@ -20,7 +20,7 @@ Findings appear as code-scanning alerts on pull requests (free for public reposi
 permissions: { contents: read, security-events: write }
 steps:
   - uses: actions/checkout@v4
-  - uses: tpong-dev/leakray@v0.1.0
+  - uses: tpong-dev/leakray@v0.2.0
     with: { path: ".", fail-on: "error" }
 ```
 

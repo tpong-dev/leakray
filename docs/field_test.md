@@ -148,3 +148,16 @@ Problems with how these are handled:
    - Report cell and line in parse warnings.
 9. **Directory hygiene.** Repos with `translations/` (or other duplicated content) inflate
    counts 50-fold. A default exclude list, or a documented exclude option, would help.
+
+
+## Re-run with v0.2.0 (same 4 repos, `translations/` excluded)
+
+| | v0.1.0 | v0.2.0 |
+|---|---:|---:|
+| Notebooks that failed to parse | 16 | **0** (a broken cell is skipped on its own; R and empty notebooks are skipped) |
+| Total findings | 175 | 123 |
+| LK004 (fit on test) | 35 | 3 |
+| LK005 (tuning on test) | 22 | 3 |
+| LK015 (info, low confidence) | 81 | 81 |
+
+Root causes fixed: scalar parameters named `test_*` were treated as test data, and tuple assignments merged roles. The labelled sample above has **not** been re-labelled for v0.2.0, so the precision numbers above still describe v0.1.0. LK015 is by far the largest remaining source of noise, so `--ignore LK015` or `--min-confidence medium` is the recommended starting point on tutorial-style code.

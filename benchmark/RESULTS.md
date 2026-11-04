@@ -1,7 +1,7 @@
 # leakray benchmark results
 
 - Date: 2026-11-04
-- leakray version: 0.1.0
+- leakray version: 0.2.0
 - Cases: 126 (71 leaky, 55 clean)
 - Confidence filter: none (default Options)
 

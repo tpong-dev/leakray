@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-04
+
 ### Changed
 
 - LK002: needs explicit datetime evidence or a column clearly named as a date (no more `spend_per_month` false positives). It also catches shuffled `KFold`/`ShuffleSplit` objects and `cross_val_score(cv=5)` on dated data.

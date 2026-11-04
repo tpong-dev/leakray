@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "leakray"
-version = "0.1.0"
+version = "0.2.0"
 description = "Static analysis that finds data leakage in ML code: Python scripts and Jupyter notebooks."
 readme = "README.md"
 license = "MIT"
