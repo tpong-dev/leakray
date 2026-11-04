@@ -7,6 +7,7 @@ from collections.abc import Iterator
 
 from ..dataflow import Analysis
 from ..models import LOW, MEDIUM, Finding, Severity
+from ._util import assigned_name, splitter_constructions
 from .base import Rule, register
 
 _STRONG = re.compile(
@@ -39,13 +40,31 @@ class KFoldIgnoresGroups(Rule):
         if not strong and not weak:
             return
         col = (strong or weak)[0]
+        conf = MEDIUM if strong else LOW
+        entity = col.split("_")[0]
+        reported_receivers: set[str] = set()
+        seen: set[int] = set()
         for s in a.splits:
             name = "train_test_split" if s.kind == "train_test_split" else s.splitter
             if s.kind not in {"train_test_split", "cv_split"} or name not in _UNGROUPED:
                 continue
+            if s.kind == "cv_split" and s.call and s.call.receiver:
+                reported_receivers.add(s.call.receiver)
+            seen.add(s.line)
             yield self.report(
                 a, s.node,
                 f"{name} splits rows at random, but column {col!r} suggests repeated entities: the same "
-                f"{col.split('_')[0]} can appear in train and test, so the model is graded on people it has seen.",
-                confidence=MEDIUM if strong else LOW,
+                f"{entity} can appear in train and test, so the model is graded on people it has seen.",
+                confidence=conf,
+            )
+        # splitter objects used without a .split() loop, e.g. cross_val_score(..., cv=KFold(5, shuffle=True))
+        for c in splitter_constructions(a, _UNGROUPED - {"train_test_split"}):
+            if assigned_name(c.node, a) in reported_receivers or c.line in seen:
+                continue
+            seen.add(c.line)
+            yield self.report(
+                a, c.node,
+                f"{c.func} assigns rows to folds without groups=, but column {col!r} suggests repeated "
+                f"entities: the same {entity} can land in both the training and validation folds.",
+                confidence=conf,
             )

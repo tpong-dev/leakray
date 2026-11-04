@@ -142,7 +142,9 @@ There are 126 labelled snippets (71 leaky, 55 clean), with tricky clean look-ali
 | LK008 | 0.60 | 0.75 | | LK016 | 1.00 | 1.00 |
 | **All (micro)** | **0.86** | **0.76** | | **File level** | **0.90** | **0.80** |
 
-The weak spots are LK002 (it fires on files that only mention a date column) and the recall of LK003, LK012 and LK014 (patterns the simple dataflow does not follow). These are the next things to improve. Per-rule counts are small (4–6 leaky cases each), so treat single-rule numbers as rough.
+**After the first round of fixes** (main branch, not yet released): the fixes were informed by the error analysis above, so the main set is no longer independent. It now scores precision 1.00 / recall 0.95, but that is optimistic. For an honest number, a **held-out set** of 48 new cases ([benchmark/holdout/](benchmark/holdout/)) was written after the fixes, without reading the rules or the main cases. It scores **micro precision 0.93 / recall 0.81** (file-level 1.00 / 0.88). Most misses there are leaks hidden inside helper functions.
+
+**In the wild** ([docs/field_test.md](docs/field_test.md)): run on 4 permissively licensed public example repos (handson-ml3, Python Data Science Handbook, scikit-learn examples, ML-For-Beginners), v0.1.0 was much noisier. In a hand-labelled sample of 13 findings, 2 were true positives, 2 debatable and 9 false positives. LK004 and LK005 misread training and validation variables as test data. That root cause is fixed on main: LK004 findings went from 35 to 3 and LK005 from 22 to 3. Treat real-world precision as **the main open problem**, and start with `--min-confidence medium` and `--ignore LK015`.
 
 On real code: run read-only on three of my own ML projects, leakray found 4 issues. 3 were false positives, now fixed and added as regression tests. The 4th is a plausible issue worth reviewing. Details: [docs/dogfood.md](docs/dogfood.md).
 

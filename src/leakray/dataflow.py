@@ -142,6 +142,40 @@ def is_estimator_like(cls: str | None) -> bool:
     return bool(cls) and cls[0].isupper()  # type: ignore[index]
 
 
+def guess_estimator_class(name: str | None) -> str | None:
+    """Representative estimator class for a variable / factory name, or None.
+
+    Used only when the real class is unknown: ``vec = self._vectorizer()``,
+    ``scaler = make_scaler()``, ``self.imputer.fit(X)``. ``my_scaler`` ->
+    ``"StandardScaler"``, ``tfidf`` -> ``"TfidfVectorizer"``, ``smote`` -> ``"SMOTE"``.
+    """
+    if not name:
+        return None
+    tokens = [t for t in _TOKEN_SPLIT.split(name.lower()) if t]
+    for t in tokens:
+        if t.endswith("scaler") or t == "normalizer":
+            return "StandardScaler"
+        if t.endswith("imputer"):
+            return "SimpleImputer"
+        if t.endswith("encoder") or t in {"enc", "ohe"}:
+            return "TargetEncoder" if "target" in tokens else "OneHotEncoder"
+        if t.endswith(("vectorizer", "vectoriser")) or t in {"vec", "vect", "tfv"} or t.startswith("tfidf"):
+            return "TfidfVectorizer"
+        if t == "pca" or t.endswith("pca"):
+            return "PCA"
+        if t == "svd":
+            return "TruncatedSVD"
+        if t.endswith("selector"):
+            return "SelectKBest"
+        if "smote" in t:
+            return "SMOTE"
+        if t == "adasyn":
+            return "ADASYN"
+        if t.endswith("sampler"):
+            return "RandomUnderSampler" if t.startswith("under") else "RandomOverSampler"
+    return None
+
+
 # --------------------------------------------------------------------------
 # Fact records
 # --------------------------------------------------------------------------
@@ -207,6 +241,8 @@ class FitCall:
     data_args: list[ast.expr]  # positional args + X=/y= kwargs
     roles: list[Role]  # role of each data arg at the call
     line: int
+    estimator_guessed: bool = False  # estimator class inferred from a variable / factory name
+    via_function: str | None = None  # set when this fit happens inside a helper called here
 
     @property
     def role(self) -> Role:
@@ -238,6 +274,7 @@ class EstimatorDef:
     cls: str  # short class name ("Pipeline" for make_pipeline)
     call: ast.Call
     steps: list[str] = field(default_factory=list)  # step classes for pipelines/ColumnTransformer
+    guessed: bool = False  # class inferred from the variable / factory name, not a constructor
 
 
 # --------------------------------------------------------------------------
@@ -258,6 +295,7 @@ class Analysis:
         self.fits: list[FitCall] = []
         self.assignments: list[Assignment] = []
         self.estimators: dict[str, list[EstimatorDef]] = {}
+        self.functions: dict[str, ast.FunctionDef | ast.AsyncFunctionDef] = {}
         self.parents: dict[ast.AST, ast.AST] = {}
         self.target_columns: dict[str, int] = {}  # column literal -> line where used as y
         self.target_vars: set[str] = set()  # variables holding the target (y)
@@ -385,6 +423,9 @@ class Analysis:
                 if len(node.value) < 80:
                     self.string_constants.add(node.value)
         self._collect_imports()
+        for node in ast.walk(self.tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                self.functions.setdefault(node.name, node)
         _Walker(self).visit(self.tree)
         self._post()
 
@@ -436,6 +477,12 @@ def _const_str(node: ast.AST | None) -> str | None:
     if isinstance(node, ast.Constant) and isinstance(node.value, str):
         return node.value
     return None
+
+
+def _const_args_only(call: ast.Call) -> bool:
+    """True if every argument of ``call`` is a literal (``make_scaler()``, ``get_vec(ngram=2)``)."""
+    vals = [*call.args, *(k.value for k in call.keywords)]
+    return all(isinstance(v, ast.Constant) for v in vals)
 
 
 def _subscript_key(node: ast.AST | None) -> str | None:
@@ -550,6 +597,9 @@ class _Walker(ast.NodeVisitor):
             a.cv_evals.append(info)
         if func in FIT_METHODS and isinstance(node.func, ast.Attribute):
             self._record_fit(info)
+        if isinstance(node.func, ast.Name) and node.func.id in a.functions \
+                and node.func.id not in self.func_stack:
+            self._record_helper_fits(info, a.functions[node.func.id])
         if func in {"pop"} and node.args:
             pass
 
@@ -557,12 +607,24 @@ class _Walker(ast.NodeVisitor):
         a = self.a
         recv = info.receiver_expr
         est: str | None = None
+        guessed = False
         if info.receiver:
-            est = a.estimator_class(info.receiver, info.line)
+            d = a.estimator_def(info.receiver, info.line)
+            if d is not None:
+                est, guessed = d.cls, d.guessed
+            elif not any(r is not Role.UNKNOWN for _, r in a._history.get(info.receiver, [])):
+                est = guess_estimator_class(info.receiver)
+                guessed = est is not None
         elif isinstance(recv, ast.Call):
             short = (a.resolve(recv.func) or "").rsplit(".", 1)[-1]
             if is_estimator_like(short):
                 est = "Pipeline" if short in PIPELINE_BUILDERS else short
+            elif _const_args_only(recv):
+                est = guess_estimator_class(short)  # self._vectorizer().fit_transform(docs)
+                guessed = est is not None
+        elif isinstance(recv, ast.Attribute):
+            est = guess_estimator_class(recv.attr)  # self.scaler.fit(X)
+            guessed = est is not None
         data_args = list(info.args)
         for k in ("X", "y", "x", "Y", "X_train", "y_train"):
             if k in info.kwargs:
@@ -576,10 +638,52 @@ class _Walker(ast.NodeVisitor):
             data_args=data_args,
             roles=roles,
             line=info.line,
+            estimator_guessed=guessed,
         )
         a.fits.append(fit)
         if est in SEARCH_CV:
             a.cv_evals.append(info)
+
+    def _record_helper_fits(self, info: CallInfo, fdef: ast.FunctionDef | ast.AsyncFunctionDef) -> None:
+        """``X = reduce(df)`` where ``def reduce(m): return PCA().fit_transform(m)``.
+
+        Each fit inside the helper whose X comes from a parameter is recorded again
+        at the call site, with the roles of the arguments passed in (``via_function``).
+        """
+        a = self.a
+        params = [p.arg for p in fdef.args.posonlyargs + fdef.args.args]
+        bound: dict[str, ast.expr] = {}
+        for p, arg in zip(params, info.args):
+            if not isinstance(arg, ast.Starred):
+                bound[p] = arg
+        for k, v in info.kwargs.items():
+            if k in params:
+                bound[k] = v
+        if not bound:
+            return
+        end = fdef.end_lineno or fdef.lineno
+        inner = [f for f in a.fits if f.call.func_scope == fdef.name and f.via_function is None
+                 and fdef.lineno <= f.line <= end]
+        for f in inner:
+            if f.estimator in SEARCH_CV or not f.data_args:
+                continue
+            if not any(isinstance(n, ast.Name) and n.id in bound for n in ast.walk(f.data_args[0])):
+                continue
+            new_args: list[ast.expr] = []
+            roles: list[Role] = []
+            for darg in f.data_args:
+                names = [n.id for n in ast.walk(darg) if isinstance(n, ast.Name) and n.id in bound]
+                new_args.append(bound[darg.id] if isinstance(darg, ast.Name) and darg.id in bound else darg)
+                roles.append(combine(a.role_of(bound[n], info.line) for n in names) if names else Role.UNKNOWN)
+            call = CallInfo(
+                node=info.node, line=info.line, name=f.call.name, func=f.call.func,
+                receiver=f.call.receiver, receiver_expr=f.call.receiver_expr, args=f.call.args,
+                kwargs=f.call.kwargs, stmt=info.stmt, loop_depth=info.loop_depth, func_scope=info.func_scope,
+            )
+            a.fits.append(FitCall(
+                call=call, method=f.method, estimator=f.estimator, receiver=f.receiver, data_args=new_args,
+                roles=roles, line=info.line, estimator_guessed=f.estimator_guessed, via_function=fdef.name,
+            ))
 
     # --- assignments -------------------------------------------------------
 
@@ -605,6 +709,13 @@ class _Walker(ast.NodeVisitor):
     def _assign(self, target: ast.AST, value: ast.expr, stmt: ast.stmt) -> None:
         a = self.a
         line = stmt.lineno
+        # train, test = train.fillna(m), test.fillna(m): element-wise
+        if isinstance(target, (ast.Tuple, ast.List)) and isinstance(value, (ast.Tuple, ast.List)) \
+                and len(target.elts) == len(value.elts) \
+                and not any(isinstance(e, ast.Starred) for e in [*target.elts, *value.elts]):
+            for t, v in zip(target.elts, value.elts):
+                self._assign(t, v, stmt)
+            return
         names = _target_names(target)
 
         # df["col"] = ...  (mutation of an existing frame)
@@ -636,6 +747,17 @@ class _Walker(ast.NodeVisitor):
             a.assignments.append(Assignment(line, names, value, Role.UNKNOWN, stmt))
             a._set_role(names[0], line, Role.UNKNOWN)
             return
+
+        # ---- vec = self._vectorizer() / scaler = make_scaler(): guessed class
+        if call is not None and len(names) == 1 and short not in DATA_LOADERS and _const_args_only(call):
+            guess = guess_estimator_class(short)
+            if guess is not None:
+                a.estimators.setdefault(names[0], []).append(
+                    EstimatorDef(line=line, cls=guess, call=call, guessed=True)
+                )
+                a.assignments.append(Assignment(line, names, value, Role.UNKNOWN, stmt))
+                a._set_role(names[0], line, Role.UNKNOWN)
+                return
 
         # ---- model = est.fit(X, y): alias of the estimator
         if call is not None and short in {"fit", "partial_fit"} and isinstance(call.func, ast.Attribute) \
@@ -690,16 +812,30 @@ class _Walker(ast.NodeVisitor):
         if len(names) == 1:
             self._maybe_target(names[0], value, line)
 
+        # a, b = scale(a, b): positional outputs follow positional inputs
+        per_name: dict[str, Role] = {}
+        if call is not None and len(names) >= 2 and len(names) == len(call.args) \
+                and len(_flat_targets(target)) == len(names) \
+                and not any(isinstance(x, ast.Starred) for x in call.args):
+            for nm, arg in zip(names, call.args):
+                r = a.role_of(arg, line)
+                if r is not Role.UNKNOWN:
+                    per_name[nm] = r
+
         # tuple unpack of a non-split call: give everyone the combined role
         for nm in names:
             hinted = role_from_name(nm)
-            final = role
-            if hinted.is_split_side and role in (Role.FULL, Role.UNKNOWN):
+            nm_role = per_name.get(nm, role)
+            final = nm_role
+            if nm_role is Role.UNKNOWN and self._is_scalar(value):
+                # test_start = "2014-12-30" / test_size = 0.2: a parameter, not data
+                final = Role.UNKNOWN
+            elif hinted.is_split_side and nm_role in (Role.FULL, Role.UNKNOWN):
                 # train = df[df.date < "2020"]  -> a subset split
-                if role is Role.FULL:
+                if nm_role is Role.FULL:
                     self._record_subset(nm, hinted, value, line)
                 final = hinted
-            elif hinted in (Role.VALID, Role.TEST) and role is Role.TRAIN:
+            elif hinted in (Role.VALID, Role.TEST) and nm_role is Role.TRAIN:
                 # X_val = X_train[...]  -> a nested split
                 self._record_subset(nm, hinted, value, line)
                 final = hinted
@@ -707,6 +843,15 @@ class _Walker(ast.NodeVisitor):
         a.assignments.append(Assignment(line, names, value, role, stmt))
 
     # --- helpers -----------------------------------------------------------
+
+    def _is_scalar(self, value: ast.expr) -> bool:
+        """Literal-ish value: constants, f-strings, and calls on modules only (pd.Timestamp("2014"))."""
+        for n in ast.walk(value):
+            if isinstance(n, ast.Subscript):
+                return False
+            if isinstance(n, ast.Name) and n.id not in self.a.imports:
+                return False
+        return True
 
     def _bind_side(self, ev: SplitEvent, name: str, role: Role, line: int) -> None:
         {Role.TRAIN: ev.train, Role.TEST: ev.test, Role.VALID: ev.valid}.get(role, ev.train).append(name)

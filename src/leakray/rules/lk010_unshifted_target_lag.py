@@ -7,7 +7,7 @@ from collections.abc import Iterator
 
 from ..dataflow import Analysis
 from ..models import HIGH, MEDIUM, Finding, Severity
-from ._util import ancestors, chain_has_call, target_columns
+from ._util import ancestors, chain_has_call, resolved_target_columns
 from .base import Rule, register
 
 _WINDOW = {"rolling", "expanding", "ewm", "diff", "pct_change", "cumsum", "cummax", "cummin"}
@@ -33,7 +33,7 @@ class UnshiftedTargetLag(Rule):
     fix = 'Shift before the window so each row only sees the past: df["y"].shift(1).rolling(7).mean().'
 
     def check(self, a: Analysis) -> Iterator[Finding]:
-        targets = target_columns(a)
+        targets = resolved_target_columns(a)
         for c in a.calls_named(*_WINDOW):
             key = _target_key(c.receiver_expr, targets, a.target_vars)
             if key is None or chain_has_call(c.receiver_expr, "shift"):

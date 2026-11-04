@@ -242,11 +242,12 @@ def main(argv: list[str] | None = None) -> int:
                 for r in results
             ],
         }
-        (HERE / "results.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        (HERE / "RESULTS.md").write_text(
+        out_dir = HERE if args.cases.resolve() == CASES_DIR.resolve() else args.cases
+        (out_dir / "results.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        (out_dir / "RESULTS.md").write_text(
             results_markdown(metrics, results, version, args.min_confidence), encoding="utf-8"
         )
-        print(f"\nwrote {HERE / 'results.json'} and {HERE / 'RESULTS.md'}")
+        print(f"\nwrote {out_dir / 'results.json'} and {out_dir / 'RESULTS.md'}")
     return 0
 
 

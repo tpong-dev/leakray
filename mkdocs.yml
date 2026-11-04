@@ -49,5 +49,6 @@ nav:
   - Limitations: limitations.md
   - Benchmark: benchmark.md
   - Dogfooding: dogfood.md
+  - Field test: field_test.md
   - Prior work: prior_work.md
   - Architecture: ARCHITECTURE.md

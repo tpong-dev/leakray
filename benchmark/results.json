@@ -6,6 +6,36 @@
   "leaky_cases": 71,
   "per_rule": {
     "LK001": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK002": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK003": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK004": {
       "tp": 5,
       "fp": 0,
       "fn": 1,
@@ -13,53 +43,6 @@
       "recall": 0.8333333333333334,
       "f1": 0.9090909090909091,
       "fp_files": [],
-      "fn_files": [
-        "lk001_leaky_04_pca_inside_helper.py"
-      ]
-    },
-    "LK002": {
-      "tp": 2,
-      "fp": 4,
-      "fn": 2,
-      "precision": 0.3333333333333333,
-      "recall": 0.5,
-      "f1": 0.4,
-      "fp_files": [
-        "lk006_leaky_04_manual_resample_notebook.ipynb",
-        "lk014_clean_04_rowwise_features.py",
-        "lk014_leaky_03_normalized_freq_encoding.py",
-        "misc_clean_01_full_pipeline_gridsearch.py"
-      ],
-      "fn_files": [
-        "lk002_leaky_02_to_datetime_shuffled_kfold.py",
-        "lk002_leaky_04_stock_prices_kfold_shuffle.py"
-      ]
-    },
-    "LK003": {
-      "tp": 3,
-      "fp": 0,
-      "fn": 3,
-      "precision": 1.0,
-      "recall": 0.5,
-      "f1": 0.6666666666666666,
-      "fp_files": [],
-      "fn_files": [
-        "lk003_leaky_02_feature_list_contains_target.py",
-        "lk003_leaky_04_target_var_name.py",
-        "lk003_leaky_05_select_dtypes_numeric_target.py"
-      ]
-    },
-    "LK004": {
-      "tp": 5,
-      "fp": 2,
-      "fn": 1,
-      "precision": 0.7142857142857143,
-      "recall": 0.8333333333333334,
-      "f1": 0.7692307692307692,
-      "fp_files": [
-        "lk001_clean_03_fit_in_function_on_train.py",
-        "lk009_clean_03_notebook_fillna_after_split.ipynb"
-      ],
       "fn_files": [
         "lk005_leaky_03_gridsearch_fit_on_test.py"
       ]
@@ -77,17 +60,14 @@
       ]
     },
     "LK006": {
-      "tp": 3,
+      "tp": 5,
       "fp": 0,
-      "fn": 2,
+      "fn": 0,
       "precision": 1.0,
-      "recall": 0.6,
-      "f1": 0.7499999999999999,
+      "recall": 1.0,
+      "f1": 1.0,
       "fp_files": [],
-      "fn_files": [
-        "lk006_leaky_03_adasyn_in_helper.py",
-        "lk006_leaky_04_manual_resample_notebook.ipynb"
-      ]
+      "fn_files": []
     },
     "LK007": {
       "tp": 4,
@@ -102,19 +82,14 @@
       ]
     },
     "LK008": {
-      "tp": 3,
-      "fp": 2,
-      "fn": 1,
-      "precision": 0.6,
-      "recall": 0.75,
-      "f1": 0.6666666666666665,
-      "fp_files": [
-        "lk014_clean_03_eda_groupby_only.py",
-        "lk014_leaky_04_groupby_transform_std.py"
-      ],
-      "fn_files": [
-        "lk008_leaky_04_helper_function_agg.py"
-      ]
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
     },
     "LK009": {
       "tp": 5,
@@ -128,40 +103,33 @@
     },
     "LK010": {
       "tp": 4,
-      "fp": 1,
+      "fp": 0,
       "fn": 0,
-      "precision": 0.8,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.888888888888889,
-      "fp_files": [
-        "lk010_clean_02_diff_on_feature.py"
-      ],
+      "f1": 1.0,
+      "fp_files": [],
       "fn_files": []
     },
     "LK011": {
-      "tp": 3,
+      "tp": 4,
       "fp": 0,
-      "fn": 1,
+      "fn": 0,
       "precision": 1.0,
-      "recall": 0.75,
-      "f1": 0.8571428571428571,
+      "recall": 1.0,
+      "f1": 1.0,
       "fp_files": [],
-      "fn_files": [
-        "lk011_leaky_04_minmax_helper_then_cv.py"
-      ]
+      "fn_files": []
     },
     "LK012": {
-      "tp": 2,
+      "tp": 4,
       "fp": 0,
-      "fn": 2,
+      "fn": 0,
       "precision": 1.0,
-      "recall": 0.5,
-      "f1": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 1.0,
       "fp_files": [],
-      "fn_files": [
-        "lk012_leaky_02_user_kfold.py",
-        "lk012_leaky_03_customer_stratified_kfold.py"
-      ]
+      "fn_files": []
     },
     "LK013": {
       "tp": 3,
@@ -176,17 +144,14 @@
       ]
     },
     "LK014": {
-      "tp": 2,
+      "tp": 4,
       "fp": 0,
-      "fn": 2,
+      "fn": 0,
       "precision": 1.0,
-      "recall": 0.5,
-      "f1": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 1.0,
       "fp_files": [],
-      "fn_files": [
-        "lk014_leaky_03_normalized_freq_encoding.py",
-        "lk014_leaky_04_groupby_transform_std.py"
-      ]
+      "fn_files": []
     },
     "LK015": {
       "tp": 4,
@@ -210,20 +175,20 @@
     }
   },
   "micro": {
-    "tp": 57,
-    "fp": 9,
-    "fn": 18,
-    "precision": 0.8636363636363636,
-    "recall": 0.76,
-    "f1": 0.8085106382978724
+    "tp": 71,
+    "fp": 0,
+    "fn": 4,
+    "precision": 1.0,
+    "recall": 0.9466666666666667,
+    "f1": 0.9726027397260273
   },
   "file_level": {
-    "tp": 57,
-    "fp": 6,
-    "fn": 14,
-    "tn": 49,
-    "precision": 0.9047619047619048,
-    "recall": 0.8028169014084507
+    "tp": 68,
+    "fp": 0,
+    "fn": 3,
+    "tn": 55,
+    "precision": 1.0,
+    "recall": 0.9577464788732394
   },
   "files": [
     {
@@ -241,9 +206,7 @@
     {
       "name": "lk001_clean_03_fit_in_function_on_train.py",
       "expected": [],
-      "predicted": [
-        "LK004"
-      ],
+      "predicted": [],
       "error": null
     },
     {
@@ -287,7 +250,9 @@
       "expected": [
         "LK001"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK001"
+      ],
       "error": null
     },
     {
@@ -333,7 +298,9 @@
       "expected": [
         "LK002"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK002"
+      ],
       "error": null
     },
     {
@@ -351,7 +318,9 @@
       "expected": [
         "LK002"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK002"
+      ],
       "error": null
     },
     {
@@ -387,7 +356,9 @@
       "expected": [
         "LK003"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK003"
+      ],
       "error": null
     },
     {
@@ -405,7 +376,9 @@
       "expected": [
         "LK003"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK003"
+      ],
       "error": null
     },
     {
@@ -413,7 +386,9 @@
       "expected": [
         "LK003"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK003"
+      ],
       "error": null
     },
     {
@@ -600,7 +575,9 @@
       "expected": [
         "LK006"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK006"
+      ],
       "error": null
     },
     {
@@ -609,7 +586,7 @@
         "LK006"
       ],
       "predicted": [
-        "LK002"
+        "LK006"
       ],
       "error": null
     },
@@ -722,7 +699,9 @@
       "expected": [
         "LK008"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK008"
+      ],
       "error": null
     },
     {
@@ -740,9 +719,7 @@
     {
       "name": "lk009_clean_03_notebook_fillna_after_split.ipynb",
       "expected": [],
-      "predicted": [
-        "LK004"
-      ],
+      "predicted": [],
       "error": null
     },
     {
@@ -794,9 +771,7 @@
     {
       "name": "lk010_clean_02_diff_on_feature.py",
       "expected": [],
-      "predicted": [
-        "LK010"
-      ],
+      "predicted": [],
       "error": null
     },
     {
@@ -898,7 +873,9 @@
       "expected": [
         "LK011"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK011"
+      ],
       "error": null
     },
     {
@@ -934,7 +911,9 @@
       "expected": [
         "LK012"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK012"
+      ],
       "error": null
     },
     {
@@ -942,7 +921,9 @@
       "expected": [
         "LK012"
       ],
-      "predicted": [],
+      "predicted": [
+        "LK012"
+      ],
       "error": null
     },
     {
@@ -1026,17 +1007,13 @@
     {
       "name": "lk014_clean_03_eda_groupby_only.py",
       "expected": [],
-      "predicted": [
-        "LK008"
-      ],
+      "predicted": [],
       "error": null
     },
     {
       "name": "lk014_clean_04_rowwise_features.py",
       "expected": [],
-      "predicted": [
-        "LK002"
-      ],
+      "predicted": [],
       "error": null
     },
     {
@@ -1065,7 +1042,7 @@
         "LK014"
       ],
       "predicted": [
-        "LK002"
+        "LK014"
       ],
       "error": null
     },
@@ -1075,7 +1052,7 @@
         "LK014"
       ],
       "predicted": [
-        "LK008"
+        "LK014"
       ],
       "error": null
     },
@@ -1198,9 +1175,7 @@
     {
       "name": "misc_clean_01_full_pipeline_gridsearch.py",
       "expected": [],
-      "predicted": [
-        "LK002"
-      ],
+      "predicted": [],
       "error": null
     },
     {

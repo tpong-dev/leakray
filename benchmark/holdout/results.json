@@ -1,0 +1,611 @@
+{
+  "date": "2026-11-04",
+  "leakray_version": "0.1.0",
+  "min_confidence": null,
+  "cases": 48,
+  "leaky_cases": 32,
+  "per_rule": {
+    "LK001": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK002": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK003": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk003_drop_wrong_column_func.py"
+      ]
+    },
+    "LK004": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK005": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK006": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk006_oversample_then_cv_func.py"
+      ]
+    },
+    "LK007": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK008": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk008_groupby_mean_map.py"
+      ]
+    },
+    "LK009": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk009_median_inplace_func.py"
+      ]
+    },
+    "LK010": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk010_rolling_target.py"
+      ]
+    },
+    "LK011": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK012": {
+      "tp": 2,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8,
+      "fp_files": [
+        "lk009_median_inplace_func.py"
+      ],
+      "fn_files": []
+    },
+    "LK013": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK014": {
+      "tp": 2,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8,
+      "fp_files": [
+        "lk008_groupby_mean_map.py"
+      ],
+      "fn_files": []
+    },
+    "LK015": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk015_no_dedup_kfold_func.py"
+      ]
+    },
+    "LK016": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    }
+  },
+  "micro": {
+    "tp": 26,
+    "fp": 2,
+    "fn": 6,
+    "precision": 0.9285714285714286,
+    "recall": 0.8125,
+    "f1": 0.8666666666666666
+  },
+  "file_level": {
+    "tp": 28,
+    "fp": 0,
+    "fn": 4,
+    "tn": 16,
+    "precision": 1.0,
+    "recall": 0.875
+  },
+  "files": [
+    {
+      "name": "lk001_clean_fit_after_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk001_columntransformer_func.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk001_pca_numpy.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk002_clean_timeseries_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk002_sales_random_split.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk002_shuffled_kfold_sensor.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk003_clean_constant_target.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_column_list_contains_target.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [
+        "LK003"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk003_drop_wrong_column_func.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_clean_transform_only.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_refit_scaler_on_test.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk004_tfidf_chain_on_test.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_clean_separate_valid.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk005_keras_validation_data.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_lgbm_eval_set_test.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk006_clean_imblearn_pipeline.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_oversample_then_cv_func.py",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_smote_before_split.py",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [
+        "LK006"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_clean_selector_in_pipeline.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk007_mutual_info_then_cv.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_selectkbest_before_split.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk008_category_encoders_full.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk008_clean_train_only_means.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk008_groupby_mean_map.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [
+        "LK014"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_clean_train_medians.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk009_fillna_mean_frame.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_median_inplace_func.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK012"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_clean_shifted_window.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk010_ewm_diff_chain.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_rolling_target.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk011_clean_pipeline_gridsearch.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk011_columntransformer_gridsearch.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [
+        "LK011"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk011_scaled_then_cv.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [
+        "LK011"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk012_clean_group_kfold.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_patient_random_split.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [
+        "LK012"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk012_user_shuffled_kfold.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [
+        "LK012"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk013_clean_select_on_valid.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk013_knn_k_on_test.py",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [
+        "LK013"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk013_model_zoo_max.py",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [
+        "LK013"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_clean_train_frequency.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk014_frequency_encoding_full.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK014"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_groupby_transform_ratio.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK014"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk015_clean_dedup_subset.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk015_no_dedup_kfold_func.py",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk015_no_dedup_split.py",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [
+        "LK015"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_clean_concat_for_eda.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk016_concat_then_scaler.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_label_encoder_union.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    }
+  ]
+}
