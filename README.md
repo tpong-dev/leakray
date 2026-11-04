@@ -132,9 +132,9 @@ There are 126 labelled snippets (71 leaky, 55 clean), with tricky clean look-ali
 | LK004 | 0.71 | 0.83 | | LK012 | 1.00 | 0.50 |
 | LK005 | 1.00 | 0.83 | | LK013 | 1.00 | 0.75 |
 | LK006 | 1.00 | 0.60 | | LK014 | 1.00 | 0.50 |
-| LK007 | 1.00 | 0.80 | | LK015 | 0.67 | 1.00 |
+| LK007 | 1.00 | 0.80 | | LK015 | 1.00 | 1.00 |
 | LK008 | 0.60 | 0.75 | | LK016 | 1.00 | 1.00 |
-| **All (micro)** | **0.84** | **0.76** | | **File level** | **0.89** | **0.80** |
+| **All (micro)** | **0.86** | **0.76** | | **File level** | **0.90** | **0.80** |
 
 The weak spots are LK002 (it fires on files that only mention a date column) and the recall of LK003, LK012 and LK014 (patterns the simple dataflow does not follow). These are the next things to improve. Per-rule counts are small (4–6 leaky cases each), so treat single-rule numbers as rough.
 
