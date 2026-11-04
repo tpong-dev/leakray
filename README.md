@@ -1,4 +1,6 @@
-﻿# leakray
+# leakray
+
+[![CI](https://github.com/tpong-dev/leakray/actions/workflows/ci.yml/badge.svg)](https://github.com/tpong-dev/leakray/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://tpong-dev.github.io/leakray/) [![Python](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue)](pyproject.toml) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 **Find data leakage in ML code before it inflates your results.** leakray is a fast, zero-config static analyser for Python scripts and Jupyter notebooks. It flags the mistakes that make a model look better in the notebook than it will ever be in production: preprocessing fitted before the split, random splits on time data, the target hiding in the features, tuning on the test set, and 12 more.
 
@@ -168,5 +170,7 @@ pytest && ruff check . && mypy
 ```
 
 To add a rule, see [CONTRIBUTING.md](CONTRIBUTING.md). Each rule is one file in `src/leakray/rules/` plus bad and good fixtures in `tests/fixtures/LKxxx/`.
+
+Docs: <https://tpong-dev.github.io/leakray/> · Learning notes: [LEARN.md](LEARN.md) · Releasing: [docs/RELEASING.md](docs/RELEASING.md)
 
 Built with AI assistance (Claude Code). MIT licence.
