@@ -113,10 +113,11 @@ FIT_METHODS = {"fit", "fit_transform", "fit_resample", "fit_predict", "partial_f
 
 _NAME_TOKENS = {
     Role.TRAIN: {"train", "training", "trn", "tr"},
-    Role.VALID: {"val", "valid", "validation", "dev", "eval"},
+    Role.VALID: {"val", "va", "valid", "validation", "dev", "eval"},
     Role.TEST: {"test", "testing", "tst", "holdout", "te", "oos"},
 }
 _TOKEN_SPLIT = re.compile(r"[_\W\d]+")
+_NOT_DATA_TOKENS = {"tf", "transform", "transforms", "aug", "augment", "metric", "metrics", "size", "ratio", "frac"}
 
 _DATE_WORDS = re.compile(r"(date|time|timestamp|datetime|month|year|day|week|period|dt$|^ts$)", re.I)
 
@@ -124,6 +125,8 @@ _DATE_WORDS = re.compile(r"(date|time|timestamp|datetime|month|year|day|week|per
 def role_from_name(name: str) -> Role:
     """Guess a role from a variable name, e.g. ``X_test`` -> TEST."""
     tokens = [t for t in _TOKEN_SPLIT.split(name.lower()) if t]
+    if any(t in _NOT_DATA_TOKENS for t in tokens):
+        return Role.UNKNOWN  # tf_test, test_transform, eval_metric ... are not data
     found = Role.UNKNOWN
     for role, words in _NAME_TOKENS.items():
         if any(t in words for t in tokens):

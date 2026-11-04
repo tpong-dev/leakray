@@ -31,10 +31,6 @@ class RepeatedTestEvaluation(Rule):
 
     def check(self, a: Analysis) -> Iterator[Finding]:
         loops = cv_loop_ranges(a)
-        selects = any(isinstance(n, ast.Name) and "best" in n.id.lower() for n in ast.walk(a.tree)) or any(
-            c.func in {"max", "argmax", "idxmax", "sort_values", "sorted", "nlargest"} for c in a.calls)
-        if not selects:
-            return
         test_evals = []
         for c in a.calls:
             if not (c.func in _EVAL or _is_metric(c.func)):
@@ -44,17 +40,41 @@ class RepeatedTestEvaluation(Rule):
                 if any(lo <= c.line <= hi for lo, hi in loops):
                     continue  # per-fold scoring in a CV loop is fine
                 test_evals.append(c)
-        in_loop = [c for c in test_evals if c.loop_depth > 0]
-        if in_loop:
-            c = in_loop[0]
+        for c in test_evals:
+            if c.loop_depth == 0:
+                continue
+            loop = _enclosing_loop(a, c.node)
+            if loop is None:
+                continue
+            lo, hi = loop.lineno, (loop.end_lineno or loop.lineno) + 5  # selection inside or right after the loop
+            if not _selects_best(a, lo, hi):
+                continue
             yield self.report(
                 a, c.node,
                 f"Test-set {c.func}() inside a loop, and the best result is selected: the test score becomes "
                 "a tuning target and over-states real performance.",
             )
             return
-        receivers = {c.receiver for c in test_evals if c.func in _EVAL and c.receiver}
-        if len(receivers) >= 3:
-            c = test_evals[0]
-            yield self.report(a, c.node, f"{len(receivers)} models are scored on the test set and the best is "
-                              "picked; use a validation set for model choice.", confidence=LOW)
+
+
+def _enclosing_loop(a: Analysis, node: ast.AST) -> ast.stmt | None:
+    cur = a.parent(node)
+    while cur is not None:
+        if isinstance(cur, (ast.For, ast.AsyncFor, ast.While)):
+            return cur
+        cur = a.parent(cur)
+    return None
+
+
+def _selects_best(a: Analysis, lo: int, hi: int) -> bool:
+    for n in ast.walk(a.tree):
+        ln = getattr(n, "lineno", 0)
+        if not lo <= ln <= hi:
+            continue
+        if isinstance(n, ast.Name) and "best" in n.id.lower():
+            return True
+    return any(lo <= c.line <= hi and c.func in {"max", "argmax", "idxmax", "sort_values", "sorted", "nlargest"}
+               for c in a.calls)
+
+
+_ = LOW
