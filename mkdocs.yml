@@ -1,0 +1,53 @@
+site_name: leakray
+site_url: https://tpong-dev.github.io/leakray/
+repo_url: https://github.com/tpong-dev/leakray
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - navigation.sections
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Integrations: integrations.md
+  - Rules:
+      - rules/index.md
+      - rules/LK001.md
+      - rules/LK002.md
+      - rules/LK003.md
+      - rules/LK004.md
+      - rules/LK005.md
+      - rules/LK006.md
+      - rules/LK007.md
+      - rules/LK008.md
+      - rules/LK009.md
+      - rules/LK010.md
+      - rules/LK011.md
+      - rules/LK012.md
+      - rules/LK013.md
+      - rules/LK014.md
+      - rules/LK015.md
+      - rules/LK016.md
+  - Limitations: limitations.md
+  - Benchmark: benchmark.md
+  - Dogfooding: dogfood.md
+  - Prior work: prior_work.md
+  - Architecture: ARCHITECTURE.md
