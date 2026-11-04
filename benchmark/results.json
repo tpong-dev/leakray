@@ -1,0 +1,1261 @@
+{
+  "date": "2026-11-04",
+  "leakray_version": "0.1.0",
+  "min_confidence": null,
+  "cases": 126,
+  "leaky_cases": 71,
+  "per_rule": {
+    "LK001": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.8333333333333334,
+      "f1": 0.9090909090909091,
+      "fp_files": [],
+      "fn_files": [
+        "lk001_leaky_04_pca_inside_helper.py"
+      ]
+    },
+    "LK002": {
+      "tp": 2,
+      "fp": 4,
+      "fn": 2,
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "fp_files": [
+        "lk006_leaky_04_manual_resample_notebook.ipynb",
+        "lk014_clean_04_rowwise_features.py",
+        "lk014_leaky_03_normalized_freq_encoding.py",
+        "misc_clean_01_full_pipeline_gridsearch.py"
+      ],
+      "fn_files": [
+        "lk002_leaky_02_to_datetime_shuffled_kfold.py",
+        "lk002_leaky_04_stock_prices_kfold_shuffle.py"
+      ]
+    },
+    "LK003": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 3,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk003_leaky_02_feature_list_contains_target.py",
+        "lk003_leaky_04_target_var_name.py",
+        "lk003_leaky_05_select_dtypes_numeric_target.py"
+      ]
+    },
+    "LK004": {
+      "tp": 5,
+      "fp": 2,
+      "fn": 1,
+      "precision": 0.7142857142857143,
+      "recall": 0.8333333333333334,
+      "f1": 0.7692307692307692,
+      "fp_files": [
+        "lk001_clean_03_fit_in_function_on_train.py",
+        "lk009_clean_03_notebook_fillna_after_split.ipynb"
+      ],
+      "fn_files": [
+        "lk005_leaky_03_gridsearch_fit_on_test.py"
+      ]
+    },
+    "LK005": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.8333333333333334,
+      "f1": 0.9090909090909091,
+      "fp_files": [],
+      "fn_files": [
+        "lk005_leaky_05_lgb_train_valid_sets_test.py"
+      ]
+    },
+    "LK006": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1": 0.7499999999999999,
+      "fp_files": [],
+      "fn_files": [
+        "lk006_leaky_03_adasyn_in_helper.py",
+        "lk006_leaky_04_manual_resample_notebook.ipynb"
+      ]
+    },
+    "LK007": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.888888888888889,
+      "fp_files": [],
+      "fn_files": [
+        "lk007_leaky_04_corr_with_target.py"
+      ]
+    },
+    "LK008": {
+      "tp": 3,
+      "fp": 2,
+      "fn": 1,
+      "precision": 0.6,
+      "recall": 0.75,
+      "f1": 0.6666666666666665,
+      "fp_files": [
+        "lk014_clean_03_eda_groupby_only.py",
+        "lk014_leaky_04_groupby_transform_std.py"
+      ],
+      "fn_files": [
+        "lk008_leaky_04_helper_function_agg.py"
+      ]
+    },
+    "LK009": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK010": {
+      "tp": 4,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.888888888888889,
+      "fp_files": [
+        "lk010_clean_02_diff_on_feature.py"
+      ],
+      "fn_files": []
+    },
+    "LK011": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571,
+      "fp_files": [],
+      "fn_files": [
+        "lk011_leaky_04_minmax_helper_then_cv.py"
+      ]
+    },
+    "LK012": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk012_leaky_02_user_kfold.py",
+        "lk012_leaky_03_customer_stratified_kfold.py"
+      ]
+    },
+    "LK013": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571,
+      "fp_files": [],
+      "fn_files": [
+        "lk013_leaky_03_dict_comprehension_max.py"
+      ]
+    },
+    "LK014": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666,
+      "fp_files": [],
+      "fn_files": [
+        "lk014_leaky_03_normalized_freq_encoding.py",
+        "lk014_leaky_04_groupby_transform_std.py"
+      ]
+    },
+    "LK015": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    },
+    "LK016": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "fp_files": [],
+      "fn_files": []
+    }
+  },
+  "micro": {
+    "tp": 57,
+    "fp": 9,
+    "fn": 18,
+    "precision": 0.8636363636363636,
+    "recall": 0.76,
+    "f1": 0.8085106382978724
+  },
+  "file_level": {
+    "tp": 57,
+    "fp": 6,
+    "fn": 14,
+    "tn": 49,
+    "precision": 0.9047619047619048,
+    "recall": 0.8028169014084507
+  },
+  "files": [
+    {
+      "name": "lk001_clean_01_scaler_after_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk001_clean_02_pipeline.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk001_clean_03_fit_in_function_on_train.py",
+      "expected": [],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk001_clean_04_columntransformer_pipeline.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk001_leaky_01_scaler_fit_transform_then_split.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk001_leaky_02_minmax_fit_then_transform.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk001_leaky_03_imputer_inline_chain.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk001_leaky_04_pca_inside_helper.py",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk001_leaky_05_onehot_full_notebook.ipynb",
+      "expected": [
+        "LK001"
+      ],
+      "predicted": [
+        "LK001"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk002_clean_01_timeseriessplit.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk002_clean_02_no_shuffle_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk002_clean_03_date_cutoff_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk002_leaky_01_parse_dates_random_split.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk002_leaky_02_to_datetime_shuffled_kfold.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk002_leaky_03_dt_month_explicit_shuffle.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk002_leaky_04_stock_prices_kfold_shuffle.py",
+      "expected": [
+        "LK002"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_clean_01_drop_target.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_clean_02_drop_axis1_target_const.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_clean_03_feature_list_without_target.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_leaky_01_drop_wrong_column.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [
+        "LK003"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk003_leaky_02_feature_list_contains_target.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_leaky_03_fit_whole_frame_inline.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [
+        "LK003"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk003_leaky_04_target_var_name.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk003_leaky_05_select_dtypes_numeric_target.py",
+      "expected": [
+        "LK003"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_clean_01_tfidf_transform_test.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_clean_02_separate_test_file_transform.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_clean_03_pipeline_predict_test.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk004_leaky_01_refit_scaler_on_test.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk004_leaky_02_imputer_fit_on_test.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk004_leaky_03_model_fit_on_test.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk004_leaky_04_separate_test_file_encoder.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk004_leaky_05_tfidf_fit_transform_test_texts.py",
+      "expected": [
+        "LK004"
+      ],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_clean_01_eval_set_validation_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk005_clean_02_keras_validation_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk005_clean_03_optuna_cv_on_train.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk005_clean_04_gridsearch_train_single_test_score.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk005_leaky_01_xgb_eval_set_test.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_leaky_02_keras_validation_data_test.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_leaky_03_gridsearch_fit_on_test.py",
+      "expected": [
+        "LK004",
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_leaky_04_optuna_objective_test.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [
+        "LK005"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk005_leaky_05_lgb_train_valid_sets_test.py",
+      "expected": [
+        "LK005"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_clean_01_smote_train_only.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_clean_02_imblearn_pipeline_cv.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_clean_03_class_weight_balanced.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_leaky_01_smote_then_split.py",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [
+        "LK006"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk006_leaky_02_random_oversampler_then_cv.py",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [
+        "LK006"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk006_leaky_03_adasyn_in_helper.py",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk006_leaky_04_manual_resample_notebook.ipynb",
+      "expected": [
+        "LK006"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_clean_01_selectkbest_in_pipeline_cv.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk007_clean_02_selector_fit_on_train.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk007_clean_03_corr_on_train_frame.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk007_leaky_01_selectkbest_then_split.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_leaky_02_rfe_then_cv.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_leaky_03_mutual_info_top_cols.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk007_leaky_04_corr_with_target.py",
+      "expected": [
+        "LK007"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk008_clean_01_means_from_train_only.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk008_clean_02_target_encoder_in_pipeline.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk008_clean_03_groupby_transform_after_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk008_leaky_01_groupby_transform_target_mean.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk008_leaky_02_groupby_mean_map.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk008_leaky_03_target_encoder_full.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk008_leaky_04_helper_function_agg.py",
+      "expected": [
+        "LK008"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk009_clean_01_fillna_constant.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk009_clean_02_train_median_applied_to_test.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk009_clean_03_notebook_fillna_after_split.ipynb",
+      "expected": [],
+      "predicted": [
+        "LK004"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_leaky_01_fillna_df_mean.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_leaky_02_column_median.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_leaky_03_inplace_fillna.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk009_leaky_04_X_fillna_then_split.py",
+      "expected": [
+        "LK009"
+      ],
+      "predicted": [
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_clean_01_shift_then_rolling.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk010_clean_02_diff_on_feature.py",
+      "expected": [],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_clean_03_shifted_ewm.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk010_leaky_01_rolling_mean_target.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_leaky_02_diff_target.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_leaky_03_ewm_target.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk010_leaky_04_assign_lambda_rolling_std.py",
+      "expected": [
+        "LK010"
+      ],
+      "predicted": [
+        "LK010"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk011_clean_01_pipeline_cross_val_score.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk011_clean_02_pipeline_in_gridsearch_notebook.ipynb",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk011_clean_03_raw_features_tree_cv.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk011_leaky_01_scaler_then_cross_val_score.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [
+        "LK011"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk011_leaky_02_imputer_then_gridsearch.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [
+        "LK011"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk011_leaky_03_pca_then_cross_validate.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [
+        "LK011"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk011_leaky_04_minmax_helper_then_cv.py",
+      "expected": [
+        "LK011"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_clean_01_groupkfold_patient.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_clean_02_group_shuffle_split_user.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_clean_03_stratified_group_kfold_customer.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_leaky_01_patient_random_split.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [
+        "LK012"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk012_leaky_02_user_kfold.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_leaky_03_customer_stratified_kfold.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk012_leaky_04_scans_per_patient_split.py",
+      "expected": [
+        "LK012"
+      ],
+      "predicted": [
+        "LK012"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk013_clean_01_loop_on_validation_then_one_test.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk013_clean_02_loop_cv_on_train.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk013_clean_03_single_model_single_score.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk013_leaky_01_loop_models_best_on_test.py",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [
+        "LK013"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk013_leaky_02_param_loop_test_score.py",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [
+        "LK013"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk013_leaky_03_dict_comprehension_max.py",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk013_leaky_04_depth_sweep_notebook.ipynb",
+      "expected": [
+        "LK013"
+      ],
+      "predicted": [
+        "LK013"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_clean_01_freq_from_train.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk014_clean_02_groupby_on_train_mapped_to_test.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk014_clean_03_eda_groupby_only.py",
+      "expected": [],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_clean_04_rowwise_features.py",
+      "expected": [],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_leaky_01_value_counts_map.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK014"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_leaky_02_groupby_transform_feature_mean.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK014"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_leaky_03_normalized_freq_encoding.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk014_leaky_04_groupby_transform_std.py",
+      "expected": [
+        "LK014"
+      ],
+      "predicted": [
+        "LK008"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk015_clean_01_dedup_then_split.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk015_clean_02_ordered_split_no_shuffle.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk015_clean_03_dedup_subset_chain.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk015_leaky_01_plain_split.py",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [
+        "LK015"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk015_leaky_02_loader_function_stratified.py",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [
+        "LK015"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk015_leaky_03_numpy_arrays.py",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [
+        "LK015"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk015_leaky_04_notebook_split.ipynb",
+      "expected": [
+        "LK015"
+      ],
+      "predicted": [
+        "LK015"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_clean_01_concat_for_eda_only.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk016_clean_02_concat_train_val_refit.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk016_clean_03_concat_predictions_submission.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "lk016_leaky_01_concat_scaler.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_leaky_02_label_encoder_concat_series.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_leaky_03_tfidf_concat_text.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    },
+    {
+      "name": "lk016_leaky_04_concat_split_frames_onehot.py",
+      "expected": [
+        "LK016"
+      ],
+      "predicted": [
+        "LK016"
+      ],
+      "error": null
+    },
+    {
+      "name": "misc_clean_01_full_pipeline_gridsearch.py",
+      "expected": [],
+      "predicted": [
+        "LK002"
+      ],
+      "error": null
+    },
+    {
+      "name": "misc_clean_02_function_style_train_eval.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "misc_clean_03_numpy_split_dedup.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "misc_clean_04_kfold_no_preprocessing.py",
+      "expected": [],
+      "predicted": [],
+      "error": null
+    },
+    {
+      "name": "multi_leaky_01_fillna_mean_and_scaler.py",
+      "expected": [
+        "LK001",
+        "LK009"
+      ],
+      "predicted": [
+        "LK001",
+        "LK009"
+      ],
+      "error": null
+    },
+    {
+      "name": "multi_leaky_02_smote_and_selectkbest.py",
+      "expected": [
+        "LK006",
+        "LK007"
+      ],
+      "predicted": [
+        "LK006",
+        "LK007"
+      ],
+      "error": null
+    },
+    {
+      "name": "multi_leaky_03_eval_set_test_and_target_in_X.py",
+      "expected": [
+        "LK003",
+        "LK005"
+      ],
+      "predicted": [
+        "LK003",
+        "LK005"
+      ],
+      "error": null
+    }
+  ]
+}

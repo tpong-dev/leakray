@@ -120,6 +120,26 @@ steps:
 
 Each finding has a rule code, a severity, a confidence (high / medium / low), a location, a message and a fix hint.
 
+## Benchmark
+
+There are 126 labelled snippets (71 leaky, 55 clean), with tricky clean look-alikes such as `transform` on test, Pipelines, `shift().rolling`, TimeSeriesSplit, GroupKFold and `eval_set` on a validation split. They were written **from the rule definitions, independently of the rule code**, and the rules were not tuned on them afterwards, so these are first-contact numbers. Reproduce with `python benchmark/run.py`. The per-case error analysis is in [benchmark/RESULTS.md](benchmark/RESULTS.md).
+
+| Rule | Precision | Recall | | Rule | Precision | Recall |
+|---|---:|---:|---|---|---:|---:|
+| LK001 | 1.00 | 0.83 | | LK009 | 1.00 | 1.00 |
+| LK002 | 0.33 | 0.50 | | LK010 | 0.80 | 1.00 |
+| LK003 | 1.00 | 0.50 | | LK011 | 1.00 | 0.75 |
+| LK004 | 0.71 | 0.83 | | LK012 | 1.00 | 0.50 |
+| LK005 | 1.00 | 0.83 | | LK013 | 1.00 | 0.75 |
+| LK006 | 1.00 | 0.60 | | LK014 | 1.00 | 0.50 |
+| LK007 | 1.00 | 0.80 | | LK015 | 0.67 | 1.00 |
+| LK008 | 0.60 | 0.75 | | LK016 | 1.00 | 1.00 |
+| **All (micro)** | **0.84** | **0.76** | | **File level** | **0.89** | **0.80** |
+
+The weak spots are LK002 (it fires on files that only mention a date column) and the recall of LK003, LK012 and LK014 (patterns the simple dataflow does not follow). These are the next things to improve. Per-rule counts are small (4–6 leaky cases each), so treat single-rule numbers as rough.
+
+On real code: run read-only on three of my own ML projects, leakray found 4 issues. 3 were false positives, now fixed and added as regression tests. The 4th is a plausible issue worth reviewing. Details: [docs/dogfood.md](docs/dogfood.md).
+
 ## How it works
 
 leakray parses each file with Python's `ast` (notebooks: code cells joined in order) and does one pass of lightweight dataflow. Every variable gets a **role**: `full` (loaded data or derived from it), `train`, `valid`, `test` (from a split: `train_test_split` outputs, CV fold indices, date or positional slices, or names like `X_test`), or `unknown`. It also records which estimator class each `.fit` call belongs to and which data it saw. Rules ask questions of these facts, for example "was a `StandardScaler` fitted on `full` data with a split later in the file?". See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
